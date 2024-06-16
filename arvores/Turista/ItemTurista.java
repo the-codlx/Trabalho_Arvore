@@ -6,7 +6,7 @@ public class ItemTurista {
 	private int codigoT;
 	private String nome;
 	
-	public ItemTurista(int codigoT, String nome,int codigoV) {
+	public ItemTurista(int codigoT, String nome, int codigoV) {
 		this.codigoT = codigoT;
 		this.nome = nome;
 		this.codigoV = codigoV;

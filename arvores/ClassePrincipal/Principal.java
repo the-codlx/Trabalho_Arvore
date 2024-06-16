@@ -21,7 +21,7 @@ public class Principal {
                     menuViagens(arvoreV);
                     break;
                 case 2:
-                    menuTuristas(arvoreT);
+                    menuTuristas(arvoreT, arvoreV);
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -97,7 +97,7 @@ public class Principal {
 
     }
 
-    public static void menuTuristas (ArvoreTurista arvoreT) {
+    public static void menuTuristas (ArvoreTurista arvoreT, ArvoreViagem arvoreV) {
 
         while(true) {
             
@@ -107,17 +107,32 @@ public class Principal {
             switch(opcao) {
 
                 case 1:
+                inserirTurista(arvoreT, arvoreV);
                 break;
 
                 case 2:
+
                 break;
 
                 case 3:
+                removeTurista(arvoreT);
                 break;
 
                 case 4:
-                break;
+                if(arvoreT.getQuantNos() != 0){
+                    
+                    System.out.println("---------------------------");
+                    arvoreT.mostraTuristaPreFixado(arvoreT.getRaiz());
+                    break;
+    
+                }
+                else {
 
+                    System.out.println();
+                    System.out.println("Não há mais turistas!");
+                
+                }
+            
                 case 0:
                 return;
 
@@ -129,21 +144,6 @@ public class Principal {
             }
 
     } 
-
-
-    public void alterarViagem(ArvoreViagem arvore) {
-
-
-        System.out.println("Digite o codigo da viagem que deseja alterar: ");
-        int codigo = Integer.parseInt(entrada.nextLine());
-
-        arvore.pesquisar(codigo, arvore.getRaiz()); {
-
-
-        }
-
-
-    }
 
 
     public static void opcoesViagem () {
@@ -158,13 +158,14 @@ public class Principal {
 
     }
 
+
     public static void opcoesTurista () {
 
         System.out.println("""
                 1. Adicionar Turista em Viagem.
                 2. Alterar Viagem do Turista.
                 3. Remover turista da Viagem.
-                4. Mostrar valor em viagem.
+                4. Mostrar turistas.
                 0. Retornar
                 """);
     }
@@ -198,7 +199,6 @@ public class Principal {
         double valor = Double.parseDouble(entrada.nextLine());
         item.setValorV(valor);
 
-        NoViagem no = new NoViagem(item);
         arvore.inserirViagem(item);
 
         System.out.println();
@@ -208,12 +208,24 @@ public class Principal {
     }
 
 
+    public void alterarViagem(ArvoreViagem arvore) {
+
+
+        System.out.println("Digite o codigo da viagem que deseja alterar: ");
+        int codigo = Integer.parseInt(entrada.nextLine());
+
+        arvore.pesquisar(codigo, arvore.getRaiz());
+
+
+    }
+
+
     public static void removeViagem(ArvoreViagem arvore) {
 
         System.out.println("Digite o codigo da viagem a ser removida: ");
         int codigo = Integer.parseInt(entrada.nextLine());
 
-        boolean removeu = arvore.removerViagemNaoRecursivo(codigo);
+        boolean removeu = arvore.remover(codigo);
         
         if(removeu == true) {
             
@@ -231,4 +243,75 @@ public class Principal {
     }
 
 
+    public static void inserirTurista(ArvoreTurista arvoreT, ArvoreViagem arvoreV) {
+
+        System.out.println();
+        
+        ItemTurista item = new ItemTurista();
+        boolean tem = false;
+
+        System.out.println("Insira o codigo da viagem: ");
+        int codigoV = Integer.parseInt(entrada.nextLine());
+
+
+        tem = arvoreV.pesquisar(codigoV);
+
+        if(tem == true) {
+
+            item.setCodigoV(codigoV);
+
+            System.out.println();
+
+            System.out.println("Insira o codigo do Turista: ");
+            int codigoT = Integer.parseInt(entrada.nextLine());
+            item.setCodigoT(codigoT);
+            
+            System.out.println();
+
+            System.out.println("Insira o nome do turista: ");
+            String nome = entrada.nextLine();
+            item.setNome(nome);
+
+            System.out.println();
+
+            arvoreT.inserir(item);
+
+            System.out.println();
+
+            System.out.println("Turista adicionado com sucesso!");
+
+
+            }
+
+        else {
+
+            System.out.println("Não existe viagem com esse codigo! ");
+
+        }
+
     }
+
+
+    public static void removeTurista(ArvoreTurista arvoreT) {
+
+        System.out.println("Digite o codigo do turista a ser removido: ");
+        int codigo = Integer.parseInt(entrada.nextLine());
+
+        boolean removeu = arvoreT.remover(codigo);
+        
+        if(removeu == true) {
+            
+            System.out.println();
+            System.out.println("Turista removido com sucesso!\n");
+            
+        }
+        
+        else {
+
+            System.out.println("Turista não encontrado!");
+            
+        }
+
+    }
+
+}

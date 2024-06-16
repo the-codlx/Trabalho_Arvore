@@ -70,10 +70,10 @@ public class ArvoreViagem {
 	}
 
 
-	public boolean removerViagemNaoRecursivo (int codigo) {
+	public boolean remover (int codigo) {
 
 		if (pesquisar (codigo, this.getRaiz()) != null){
-			this.raiz = removerViagemRecursivo(codigo, this.getRaiz());
+			this.raiz = remover(codigo, this.getRaiz());
 			this.quantNos--;
 			return true;
 		}
@@ -82,12 +82,12 @@ public class ArvoreViagem {
 		}
 	}
 
-	public NoViagem removerViagemRecursivo (int codigo, NoViagem arv){
+	public NoViagem remover (int codigo, NoViagem arv){
 		if (codigo < arv.getInfo().getCodigoV()){
-			arv.setEsq(removerViagemRecursivo(codigo, arv.getEsq()));
+			arv.setEsq(remover(codigo, arv.getEsq()));
 		}else{
 			if (codigo > arv.getInfo().getCodigoV()){
-				arv.setDir(removerViagemRecursivo(codigo, arv.getDir()));
+				arv.setDir(remover(codigo, arv.getDir()));
 			}else{
 				if (arv.getDir()== null){
 					return arv.getEsq();
