@@ -62,7 +62,8 @@ public class Principal {
                 break;
 
                 case 2:
-
+                alterarViagem(arvoreV);
+                break;
 
                 case 3:
                 removeViagem(arvoreV);
@@ -111,7 +112,7 @@ public class Principal {
                 break;
 
                 case 2:
-
+                alterarViagemTurista(arvoreT, arvoreV);
                 break;
 
                 case 3:
@@ -208,16 +209,42 @@ public class Principal {
     }
 
 
-    public void alterarViagem(ArvoreViagem arvore) {
+    public static void alterarViagem(ArvoreViagem arvore) {
 
+        ItemViagem item = new ItemViagem();
 
         System.out.println("Digite o codigo da viagem que deseja alterar: ");
         int codigo = Integer.parseInt(entrada.nextLine());
 
-        arvore.pesquisar(codigo, arvore.getRaiz());
+        System.out.println("Insira o novo codigo da viagem: ");
+        int codigoV = Integer.parseInt(entrada.nextLine());
+        item.setCodigoV(codigoV);
+            
+        System.out.println();
 
+        System.out.println("Insira a nova origem da viagem: ");
+        String origem = entrada.nextLine();
+        item.setOrigemV(origem);
 
-    }
+        System.out.println();
+
+        System.out.println("Insira o novo destino da viagem: ");
+        String destino = entrada.nextLine();
+        item.setDestinoV(destino);
+
+        System.out.println();
+
+        System.out.println("Insira o  novo valor da viagem: ");
+        double valor = Double.parseDouble(entrada.nextLine());
+        item.setValorV(valor);
+
+        NoViagem novoNo = new NoViagem(item);
+
+        arvore.alterarViagem(codigo, novoNo);
+
+        System.out.println();
+
+        }
 
 
     public static void removeViagem(ArvoreViagem arvore) {
@@ -311,6 +338,20 @@ public class Principal {
             System.out.println("Turista não encontrado!");
             
         }
+
+    }
+
+    public static void alterarViagemTurista (ArvoreTurista arvoreT, ArvoreViagem arvoreV) {
+
+        System.out.println("Digite o codigo do turista que deseja alterar a viagem: ");
+        int codigoT = Integer.parseInt(entrada.nextLine());
+
+        System.out.println("Digite para qual viagem deseja alocá-lo: ");
+        int codigoV = Integer.parseInt(entrada.nextLine());
+
+        arvoreT.alterarTurista(codigoT, codigoV, arvoreV);
+
+        System.out.println();
 
     }
 

@@ -64,8 +64,21 @@ public class ArvoreViagem {
 	}
 
 
-	public alterarViagem (NoViagem no) {
+	public void alterarViagem (int codigo, NoViagem novoNo) {
+		
+		NoViagem no = pesquisar(codigo, this.raiz);
 
+		if (no != null) {
+			
+			no.setInfo(novoNo.getInfo());
+			System.out.println("Viagem alterada com sucesso! ");
+		
+		} 
+		else {
+			
+			System.out.println("Viagem com o código " + codigo + " não encontrada.");
+		
+		}
 		
 	}
 

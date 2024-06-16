@@ -202,8 +202,38 @@ public class ArvoreTurista {
 
 			mostraTuristaPreFixado(arvoreT.getEsq());
 			mostraTuristaPreFixado(arvoreT.getDir());
+		} 
+		
+	}
+
+	public void alterarTurista (int codigo, int codigoViagem, ArvoreViagem arvoreV) {
+		
+		NoTurista no = pesquisar(codigo, this.raiz);
+
+		if (no != null) {
+			
+			if(arvoreV.pesquisar(codigoViagem) == true) {
+
+				no.getInfo().setCodigoV(codigoViagem);
+				System.out.println("Viagem do turista alterada com sucesso! ");
+			
+			}
+			else {
+
+				System.out.println("Viagem com o codigo " + codigoViagem + " não encontrada.");
+
+			}
+		
+		} 
+		else {
+			
+			System.out.println("Turista com o codigo " + codigo + " não encontrada.");
+		
 		}
 		
 	}
 
 }
+
+
+
