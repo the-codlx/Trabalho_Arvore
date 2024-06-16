@@ -18,53 +18,62 @@ public class ArvoreViagem {
 		return this.quantNos;
 	}
 	
-	public boolean inserir (ItemViagem elem){
+	public boolean inserirViagem (ItemViagem elem){
 		if (pesquisar (elem.getCodigoV())){
 			return false;
 		}else{
-			this.raiz = inserir (elem, this.raiz);
+			this.raiz = inserirViagem (elem, this.raiz);
 			this.quantNos++;
 			return true;
 		}
 	}
-	public NoViagem inserir (ItemViagem elem, NoViagem no){
+	public NoViagem inserirViagem (ItemViagem elem, NoViagem no){
 		if (no == null){
 			NoViagem novo = new NoViagem(elem);
 			return novo;
 		}else {
 			if (elem.getCodigoV() < no.getInfo().getCodigoV()){
-				no.setEsq(inserir(elem, no.getEsq()));
+				no.setEsq(inserirViagem(elem, no.getEsq()));
 				return no;
 			}else{
-				no.setDir(inserir(elem, no.getDir()));
+				no.setDir(inserirViagem(elem, no.getDir()));
 				return no;
 			}
 		}
 	}
 	
-	public boolean pesquisar (int chave){
-		if (pesquisar (chave, this.raiz)!= null){
+	public boolean pesquisar (int codigo){
+		if (pesquisar (codigo, this.raiz)!= null){
 			return true;
 		}else{
 			return false;
 		}
 	}
-	private NoViagem pesquisar (int chave, NoViagem no){
+
+	public NoViagem pesquisar (int codigo, NoViagem no){
 		if (no != null){
-			if (chave < no.getInfo().getCodigoV()){
-				no = pesquisar (chave, no.getEsq());
+			if (codigo < no.getInfo().getCodigoV()){
+				no = pesquisar (codigo, no.getEsq());
 			}else{
-				if (chave > no.getInfo().getCodigoV()){
-					no = pesquisar (chave, no.getDir());
+				if (codigo > no.getInfo().getCodigoV()){
+					no = pesquisar (codigo, no.getDir());
 				}
 			}
 		}
 		return no;
 	}
 
-	public boolean remover (int chave){
-		if (pesquisar (chave, this.raiz) != null){
-			this.raiz = remover (chave, this.raiz);
+
+	public alterarViagem (NoViagem no) {
+
+		
+	}
+
+
+	public boolean removerViagemNaoRecursivo (int codigo) {
+
+		if (pesquisar (codigo, this.getRaiz()) != null){
+			this.raiz = removerViagemRecursivo(codigo, this.getRaiz());
 			this.quantNos--;
 			return true;
 		}
@@ -72,12 +81,13 @@ public class ArvoreViagem {
 			return false;
 		}
 	}
-	public NoViagem remover (int chave, NoViagem arv){
-		if (chave < arv.getInfo().getCodigoV()){
-			arv.setEsq(remover (chave, arv.getEsq()));
+
+	public NoViagem removerViagemRecursivo (int codigo, NoViagem arv){
+		if (codigo < arv.getInfo().getCodigoV()){
+			arv.setEsq(removerViagemRecursivo(codigo, arv.getEsq()));
 		}else{
-			if (chave > arv.getInfo().getCodigoV()){
-				arv.setDir(remover (chave, arv.getDir()));
+			if (codigo > arv.getInfo().getCodigoV()){
+				arv.setDir(removerViagemRecursivo(codigo, arv.getDir()));
 			}else{
 				if (arv.getDir()== null){
 					return arv.getEsq();
@@ -102,7 +112,8 @@ public class ArvoreViagem {
 		}
 		return maior;
 	}
-	
+
+	 
 	public ItemViagem [] CamCentral (){
 		int []n= new int[1];
 		n[0]=0;
@@ -125,7 +136,7 @@ public class ArvoreViagem {
 		ItemViagem [] vet = new ItemViagem[this.quantNos];
 		return (FazCamPreFixado (this.raiz, vet, n));
 	}
-	private ItemViagem [] FazCamPreFixado (NoViagem arv, ItemViagem [] vet, int []n){
+	public ItemViagem [] FazCamPreFixado (NoViagem arv, ItemViagem [] vet, int []n){
 		if (arv != null) {
 			vet[n[0]] = arv.getInfo();
 			n[0]++;
@@ -135,6 +146,7 @@ public class ArvoreViagem {
 		return vet;
 	}
 	
+
 	public ItemViagem [] CamPosFixado (){
 		int []n= new int[1];
 		n[0]=0;
@@ -150,5 +162,25 @@ public class ArvoreViagem {
 		}
 		return vet;
 	}
+
+
+	public void mostraViagensPreFixado (NoViagem arv){
+
+		if (arv != null) {
+
+			System.out.println("Codigo da viagem: " + arv.getInfo().getCodigoV() + "\n");
+            System.out.println("Origem da viagem " + arv.getInfo().getOrigemV() + "\n");
+            System.out.println("Destino da viagem: " + arv.getInfo().getDestinoV() + "\n");
+            System.out.println("Valor da viagem: " + arv.getInfo().getValorV() + "\n");
+
+            System.out.println("------------------------");
+
+			mostraViagensPreFixado(arv.getEsq());
+			mostraViagensPreFixado(arv.getDir());
+		}
+		
+	}
+
+
 
 }
