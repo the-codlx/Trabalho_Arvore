@@ -140,7 +140,7 @@ public class ArvoreTurista {
 		}
 		return maior;
 	}
-	//caminhamento central
+	
 	public Item [] CamCentral (){
 		int []n= new int[1];
 		n[0]=0;
@@ -156,7 +156,7 @@ public class ArvoreTurista {
 		}
 		return vet;
 	}
-	//caminhamento pr�-fixado
+	
 	public Item [] CamPreFixado (){
 		int []n= new int[1];
 		n[0]=0;
@@ -172,7 +172,7 @@ public class ArvoreTurista {
 		}
 		return vet;
 	}
-	//caminhamento p�s-fixado
+	
 	public Item [] CamPosFixado (){
 		int []n= new int[1];
 		n[0]=0;

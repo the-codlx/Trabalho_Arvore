@@ -64,25 +64,6 @@ public class ArvoreViagem {
 	}
 
 
-	public void alterarViagem (int codigo, NoViagem novoNo) {
-		
-		NoViagem no = pesquisar(codigo, this.raiz);
-
-		if (no != null) {
-			
-			no.setInfo(novoNo.getInfo());
-			System.out.println("Viagem alterada com sucesso! ");
-		
-		} 
-		else {
-			
-			System.out.println("Viagem com o código " + codigo + " não encontrada.");
-		
-		}
-		
-	}
-
-
 	public boolean remover (int codigo) {
 
 		if (pesquisar (codigo, this.getRaiz()) != null){
@@ -194,6 +175,22 @@ public class ArvoreViagem {
 		
 	}
 
+	public void alterarViagem (int codigo, NoViagem novoNo) {
+		
+		NoViagem no = pesquisar(codigo, this.raiz);
 
+		if (no != null) {
+			
+			no.setInfo(novoNo.getInfo());
+			System.out.println("Viagem alterada com sucesso! ");
+		
+		} 
+		else {
+			
+			System.out.println("Viagem com o código " + codigo + " não encontrada.");
+		
+		}
+		
+	}
 
 }
