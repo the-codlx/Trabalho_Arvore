@@ -139,17 +139,8 @@ public class Principal {
                     }
 
                 case 5:
-
-                    System.out.println("Digite o codigo da viagem: ");
-                    int codigo123 = Integer.parseInt(entrada.nextLine());
-                    int cont = 0;
-
-                    int quantidade = arvoreT.contarTuristasPorViagem(arvoreT.getRaiz(), codigo123);
-
-                    System.out.println(arvoreT.valorTotal(arvoreV.getRaiz(), quantidade, codigo123));
-                    /* int  valor = calcularValorTotalViagem(arvoreV.getRaiz(), codigo123, cont);
-                    System.out.println("O valor total das viagens é: " + valor);
-                    */
+                calcularValorTotal(arvoreT, arvoreV);
+                break;
 
                 case 0:
                     return;
@@ -430,5 +421,32 @@ public class Principal {
 
 
 
+    public static void calcularValorTotal(ArvoreTurista arvoreT, ArvoreViagem arvoreV) {
+
+        int quantidade; double valorViagem, valor = 0;
+
+        System.out.println("Digite o codigo da viagem: ");
+        int codigoV = Integer.parseInt(entrada.nextLine());
+
+        if(arvoreV.pesquisar(codigoV) == false) {
+
+            System.out.println("Viagem não encontrada!");
+            return;
+
+        }
+
+        else {
+        
+        quantidade = arvoreT.contarTuristasPorViagem(arvoreT.getRaiz(), codigoV);
+
+        valorViagem = arvoreV.valorViagem(arvoreV.getRaiz(), codigoV);
+
+
+        valorViagem = valorViagem * quantidade;
+
+        System.out.println("O valor total da viagem é: " + valorViagem + "\n");
+
+        }
+    }
 
 }

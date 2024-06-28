@@ -223,36 +223,7 @@ public class ArvoreTurista {
 	}
 
 
-
-	/*public Double ValorTotal() {
-		int[] n = new int[1];
-		n[0] = 0;
-		
-		return (FazCamCentral(this.raiz, vet, n));
-	}*/
-
-	public Double valorTotal(NoViagem raiz, int quantidade, double valor) {
-		
-		if (raiz != null) {
-
-			if(raiz.getInfo().getCodigoV() == codigo) {
-
-				valor = raiz.getInfo().getValor();
-				return valor * quantidade;
-
-			}
-		
-		}
-
-		valor = valorTotal(raiz.getEsq(), quantidade, );
-		valor = valorTotal(arv.getDir(), quantidade, n);
-
-		return valor;
 	
-	}
-
-	
-
 	public int contarTuristasPorViagem(NoTurista no, int codigoViagem) {
 		
 		if (no == null) {
