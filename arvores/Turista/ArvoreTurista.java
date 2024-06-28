@@ -2,8 +2,8 @@ package arvore;
 
 public class ArvoreTurista {
 
-    private NoTurista raiz;
-	private int quantNos;//opcional
+	private NoTurista raiz;
+	private int quantNos;// opcional
 
 	public Arvore(){
 
@@ -11,42 +11,54 @@ public class ArvoreTurista {
 		this.raiz = null;
 	
     }
-	
-    public boolean eVazia (){
-		
-        return (this.raiz == null);
-	
-    }
 
-	public NoTurista getRaiz(){
-	
-        return this.raiz;
-	
-    }
-	
-    public int getQuantNos(){
-	
-        return this.quantNos;
-	
-    }
-	
-	public boolean inserir (ItemTurista elem){
-	
-        if (pesquisar (elem.getCodigoT())){
-		
-            return false;
-		
-        }
-        else{
-		
-            this.raiz = inserir (elem, this.raiz);
-			this.quantNos++;
-			return true;
-		
-        }
+
+
+	public boolean eVazia() {
+
+		return (this.raiz == null);
+
 	}
 
-	public NoTurista inserir (ItemTurista elem, NoTurista no){
+
+
+	public NoTurista getRaiz() {
+
+		return this.raiz;
+
+	}
+
+
+
+	public int getQuantNos() {
+
+		return this.quantNos;
+
+	}
+
+
+
+	public boolean inserir(ItemTurista elem) {
+
+		if (pesquisar(elem.getCodigoT())) {
+
+			return false;
+
+		} 
+		
+		else {
+
+			this.raiz = inserir(elem, this.raiz);
+			this.quantNos++;
+			return true;
+
+		}
+
+	}
+
+
+
+	private NoTurista inserir(ItemTurista elem, NoTurista no) {
 
 		if (no == null) {
 
@@ -54,186 +66,236 @@ public class ArvoreTurista {
 			return novo;
 
 		}
-        else {
-
-			if (elem.getCodigoT() < no.getInfo().getCodigoT()){
-				
-                no.setEsq(inserir(elem, no.getEsq()));
-				return no;
-			
-            }
-            else{
-				
-                no.setDir(inserir(elem, no.getDir()));
-				return no;
-			
-            }
 		
-        }
-	
-    }
-	
-	public boolean pesquisar (int codigoT){
-		
-        if (pesquisar (codigoT, this.raiz)!= null){
-			
-            return true;
-		
-        }
-        else{
-			
-            return false;
-		
-        }
-	}
-
-	private NoTurista pesquisar (int codigoT, NoTurista no){
-		if (no != null){
-			if (codigoT < no.getInfo().getCodigoT()){
-				no = pesquisar (codigoT, no.getEsq());
-			}else{
-				if (codigoT > no.getInfo().getCodigoT()){
-					no = pesquisar (codigoT, no.getDir());
-				}
-			}
-		}
-		return no;
-	}
-
-	public boolean remover (int codigo){
-		if (pesquisar (codigo, this.raiz) != null){
-			this.raiz = remover (codigo, this.raiz);
-			this.quantNos--;
-			return true;
-		}
 		else {
-			return false;
-		}
-	}
-	public NoTurista remover (int codigo, NoTurista arvoreT){
-		if (codigo < arvoreT.getInfo().getCodigoT()){
-			arvoreT.setEsq(remover (codigo, arvoreT.getEsq()));
-		}else{
-			if (codigo > arvoreT.getInfo().getCodigoT()){
-				arvoreT.setDir(remover (codigo, arvoreT.getDir()));
-			}else{
-				if (arvoreT.getDir()== null){
-					return arvoreT.getEsq();
-				}else{
-					if (arvoreT.getEsq() == null){ 
-						return arvoreT.getDir();
-					}else{
-						arvoreT.setEsq(arrumar(arvoreT, arvoreT.getEsq()));
-					}
-				}
+
+			if (elem.getCodigoT() < no.getInfo().getCodigoT()) {
+
+				no.setEsq(inserir(elem, no.getEsq()));
+				return no;
+
+			} 
+			
+			else {
+
+				no.setDir(inserir(elem, no.getDir()));
+				return no;
+
 			}
+
 		}
-		return arvoreT;
-	}
-	private NoTurista arrumar (NoTurista arv, NoTurista maior){
-		if (maior.getDir() != null){
-			maior.setDir(arrumar (arv, maior.getDir()));
-		}
-		else{
-			arv.setInfo(maior.getInfo());
-			maior = maior.getEsq();
-		}
-		return maior;
+
 	}
 	
-	public Item [] CamCentral (){
-		int []n= new int[1];
-		n[0]=0;
-		Item [] vet = new Item[this.quantNos];
-		return (FazCamCentral (this.raiz, vet, n));
-	}
-	private Item [] FazCamCentral (NoArv arv, Item [] vet, int []n){
-		if (arv != null) {
-			vet = FazCamCentral (arv.getEsq(),vet,n);
-			vet[n[0]] = arv.getInfo();
-			n[0]++;
-			vet = FazCamCentral (arv.getDir(),vet,n);
+
+
+	public boolean pesquisar(int codigoT) {
+
+		if (pesquisar(codigoT, this.raiz) != null) {
+
+			return true;
+
+		} else {
+
+			return false;
+
 		}
-		return vet;
-	}
-	
-	public Item [] CamPreFixado (){
-		int []n= new int[1];
-		n[0]=0;
-		Item [] vet = new Item[this.quantNos];
-		return (FazCamPreFixado (this.raiz, vet, n));
-	}
-	private Item [] FazCamPreFixado (NoArv arv, Item [] vet, int []n){
-		if (arv != null) {
-			vet[n[0]] = arv.getInfo();
-			n[0]++;
-			vet = FazCamPreFixado (arv.getEsq(), vet,n);
-			vet = FazCamPreFixado (arv.getDir(), vet,n);
-		}
-		return vet;
-	}
-	
-	public Item [] CamPosFixado (){
-		int []n= new int[1];
-		n[0]=0;
-		Item [] vet = new Item[this.quantNos];
-		return (FazCamPosFixado (this.raiz, vet, n));
-	}
-	private Item [] FazCamPosFixado (NoArv arv, Item[] vet, int []n){
-		if (arv != null) {
-			vet = FazCamPosFixado (arv.getEsq(), vet,n);
-			vet = FazCamPosFixado (arv.getDir(), vet,n);
-			vet[n[0]] = arv.getInfo();
-			n[0]++;
-		}
-		return vet;
 	}
 
 
-    public void mostraTuristaPreFixado (NoTurista arvoreT){
 
-		if (arvoreT != null) {
-
-			System.out.println("Codigo da viagem: " + arvoreT.getInfo().getCodigoV() + "\n");
-            System.out.println("Nome do turista: " + arvoreT.getInfo().getNome() + "\n");
-            System.out.println("Codigo do turista: " + arvoreT.getInfo().getCodigoT() + "\n");
-
-            System.out.println("------------------------");
-
-			mostraTuristaPreFixado(arvoreT.getEsq());
-			mostraTuristaPreFixado(arvoreT.getDir());
-		} 
-		
-	}
-
-	public void alterarTurista (int codigo, int codigoViagem, ArvoreViagem arvoreV) {
-		
-		NoTurista no = pesquisar(codigo, this.raiz);
+	private NoTurista pesquisar(int codigoT, NoTurista no) {
 
 		if (no != null) {
 			
-			if(arvoreV.pesquisar(codigoViagem) == true) {
+			if (codigoT < no.getInfo().getCodigoT()) {
 
-				no.getInfo().setCodigoV(codigoViagem);
-				System.out.println("Viagem do turista alterada com sucesso! ");
+				no = pesquisar(codigoT, no.getEsq());
+
+			} 
 			
-			}
 			else {
 
-				System.out.println("Viagem com o codigo " + codigoViagem + " não encontrada.");
+				if (codigoT > no.getInfo().getCodigoT()) {
+
+					no = pesquisar(codigoT, no.getDir());
+
+				}
+
+			}
+
+		}
+
+		return no;
+
+	}
+
+
+
+	public boolean remover(int codigo) {
+
+		if (pesquisar(codigo, this.raiz) != null) {
+
+			this.raiz = remover(codigo, this.raiz);
+			this.quantNos--;
+			return true;
+
+		} 
+		
+		else {
+
+			return false;
+
+		}
+
+	}
+
+
+
+
+	private NoTurista remover(int codigo, NoTurista arvoreT) {
+
+		if (codigo < arvoreT.getInfo().getCodigoT()) {
+
+			arvoreT.setEsq(remover(codigo, arvoreT.getEsq()));
+
+		} 
+		
+		else {
+
+			if (codigo > arvoreT.getInfo().getCodigoT()) {
+
+				arvoreT.setDir(remover(codigo, arvoreT.getDir()));
+
+			} 
+			
+			else {
+
+				if (arvoreT.getDir() == null) {
+
+					return arvoreT.getEsq();
+
+				} 
+				
+				else {
+
+					if (arvoreT.getEsq() == null) {
+
+						return arvoreT.getDir();
+
+					} 
+					
+					else {
+
+						arvoreT.setEsq(arrumar(arvoreT, arvoreT.getEsq()));
+
+					}
+
+				}
+
+			}
+
+		}
+		
+		return arvoreT;
+
+	}
+
+
+
+	private NoTurista arrumar(NoTurista arv, NoTurista maior) {
+
+		if (maior.getDir() != null) {
+
+			maior.setDir(arrumar(arv, maior.getDir()));
+
+		}
+		
+		else {
+
+			arv.setInfo(maior.getInfo());
+			maior = maior.getEsq();
+
+		}
+
+		return maior;
+
+	}
+
+
+
+	/*public Double ValorTotal() {
+		int[] n = new int[1];
+		n[0] = 0;
+		
+		return (FazCamCentral(this.raiz, vet, n));
+	}*/
+
+	public Double valorTotal(NoViagem raiz, int quantidade, double valor) {
+		
+		if (raiz != null) {
+
+			if(raiz.getInfo().getCodigoV() == codigo) {
+
+				valor = raiz.getInfo().getValor();
+				return valor * quantidade;
 
 			}
 		
-		} 
-		else {
-			
-			System.out.println("Turista com o codigo " + codigo + " não encontrada.");
-		
 		}
+
+		valor = valorTotal(raiz.getEsq(), quantidade, );
+		valor = valorTotal(arv.getDir(), quantidade, n);
+
+		return valor;
+	
+	}
+
+	
+
+	public int contarTuristasPorViagem(NoTurista no, int codigoViagem) {
 		
+		if (no == null) {
+			return 0;
+		}
+
+		int contador = 0;
+
+		if (no.getInfo().getCodigoV() == codigoViagem) {
+			contador = 1;
+		}
+
+		contador += contarTuristasPorViagem(no.getEsq(), codigoViagem);
+		contador += contarTuristasPorViagem(no.getDir(), codigoViagem);
+
+		return contador;
+	}
+
+	
+
+	public String alterarTurista(int codigo, int codigoViagem, ArvoreViagem arvoreV) {
+
+		NoTurista no = pesquisar(codigo, this.raiz);
+
+		if (no != null) {
+
+			if (arvoreV.pesquisar(codigoViagem) == true) {
+
+				no.getInfo().setCodigoV(codigoViagem);
+				return "Viagem do turista alterada com sucesso!";
+
+			} else {
+
+				return "Viagem com o codigo " + codigoViagem + " não encontrada.";
+
+			}
+
+		} else {
+
+			return "Turista com o codigo " + codigo + " não encontrado.";
+
+		}
+
 	}
 
 }
-
-
-

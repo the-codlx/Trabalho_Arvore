@@ -15,11 +15,28 @@ public class ItemViagem {
 			this.valorV = valorV;
 		}
 		
+		/*
+
+		ideia do lester
+		
+		private int codigo, qtdTuristas;
+		private double valorPessoa, valorTotal;
+
+		public ItemViagem(int codigo, int turistas, double valorPessoa) {
+			this.codigo = random;
+			this.qtdTuristas = turistas;
+			this.valorPessoa = valorPessoa;
+			this.valorTotal = turistas * valorPessoa;
+			}
+		*/
+
+
+
 		public ItemViagem() {
 			super();
 			this.codigoV = 0;
-			this.origemV = " ";
-			this.destinoV = " ";
+			this.origemV = "";
+			this.destinoV = "";
 			this.valorV = 0;
 		}
 
