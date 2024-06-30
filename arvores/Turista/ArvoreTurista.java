@@ -3,9 +3,9 @@ package arvore;
 public class ArvoreTurista {
 
 	private NoTurista raiz;
-	private int quantNos;// opcional
+	private int quantNos;
 
-	public Arvore(){
+	public ArvoreTurista(){
 
 		this.quantNos=0;
 		this.raiz = null;

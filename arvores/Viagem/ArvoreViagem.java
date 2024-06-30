@@ -199,8 +199,6 @@ public class ArvoreViagem {
 
 	}
 
-
-
 	public String alterarViagemBooleano(int codigo, NoViagem novoNo) {
 
 		NoViagem no = pesquisar(codigo, this.raiz);
@@ -210,26 +208,24 @@ public class ArvoreViagem {
 
 	}
 
+	public Double valorViagem(NoViagem raiz, int codigo) {
 
-
-		public Double valorViagem(NoViagem raiz, int codigo) {
-		
-			if (raiz == null) {
-				return 0.0;
-			}
-		
-			if (raiz.getInfo().getCodigoV() == codigo) {
-				return raiz.getInfo().getValorV();
-			}
-    		
-			if (valorViagem(raiz.getEsq(), codigo) != 0.0) { 
-
-        		return valorViagem(raiz.getEsq(), codigo);
-    		
-			}
-
-    		return valorViagem(raiz.getDir(), codigo);
-	
+		if (raiz == null) {
+			return 0.0;
 		}
+
+		if (raiz.getInfo().getCodigoV() == codigo) {
+			return raiz.getInfo().getValorV();
+		}
+
+		if (valorViagem(raiz.getEsq(), codigo) != 0.0) {
+
+			return valorViagem(raiz.getEsq(), codigo);
+
+		}
+
+		return valorViagem(raiz.getDir(), codigo);
+
+	}
 
 }
